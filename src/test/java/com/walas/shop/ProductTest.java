@@ -13,7 +13,17 @@ public class ProductTest {
         assertNotNull(product);
     }
     @Test
-    public void shouldSetAndGet() {
+    public void shouldSetAndGetFields() {
+        Product product = new Product();
 
+        product.setName("Ryzen 5");
+        product.setBrand("AMD");
+        product.setInventory(10);
+        product.setDescription("7500X3D");
+
+        assertEquals("Ryzen 5", product.getName());
+        assertEquals("AMD", product.getBrand());
+        assertEquals(10, product.getInventory());
+        assertEquals("7500X3D", product.getDescription());
     }
 }
