@@ -1,16 +1,39 @@
 package com.walas.shop.service.product;
 
 import com.walas.shop.exceptions.ProductNotFoundException;
+import com.walas.shop.model.Category;
 import com.walas.shop.model.Product;
 import com.walas.shop.repository.ProductRepository;
+import com.walas.shop.request.AddProductRequest;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class ProductService implements IProductService {
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    private Product createProduct(AddProductRequest request, Category category) {
+        return new Product(
+                request.getName(),
+                request.getBrand(),
+                request.getPrice(),
+                request.getInventory(),
+                request.getDescription(),
+                category
+        );
+    }
 
     @Override
-    public Product addProduct(Product product) {
+    public Product addProduct(AddProductRequest request) {
+        // check if the category is found in the DB
+        // if yes, set it as the new product category
+        // if no, the save it as a new category
+        // then set as the new product category
         return null;
     }
     @Override

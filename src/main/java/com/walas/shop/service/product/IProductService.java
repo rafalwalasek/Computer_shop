@@ -1,11 +1,12 @@
 package com.walas.shop.service.product;
 
 import com.walas.shop.model.Product;
+import com.walas.shop.request.AddProductRequest;
 
 import java.util.List;
 
 public interface IProductService {
-    Product addProduct(Product product);
+    Product addProduct(AddProductRequest product);
     Product getProductById(Long id);
     void deleteProductById(Long id);
     void updateProduct(Product product, Long productId);
