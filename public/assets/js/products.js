@@ -71,7 +71,6 @@ const products = [
 ];
 
 const cartCountElement = document.querySelector(".cart-count");
-
 products.forEach(product => {
     const productCard = createProductCard(product);
     productsGrid.appendChild(productCard);
@@ -79,7 +78,6 @@ products.forEach(product => {
 
 // wyszukiwarka
 const searchInput = document.querySelector(".search-input");
-
 searchInput.addEventListener("input", () => {
     const filteredProducts = products.filter(product => {
         return product.name.toLowerCase().includes(searchInput.value.toLowerCase().trim()) ||
@@ -146,3 +144,21 @@ function createProductCard(product) {
 
     return productCard;
 }
+
+// kategorie
+const categories = new set();
+products.forEach(product => {
+    categories.add(product.category);
+});
+
+const categoriesContainer = document.createElement("div");
+categoriesContainer.className = "categories-container";
+
+productsGrid.parentNode.insertBefore(categoriesContainer, productsGrid);
+
+categories.forEach(category => {
+    const categoryButton = document.createElement("button");
+    categoryButton.className = "category-button";
+
+    
+});
