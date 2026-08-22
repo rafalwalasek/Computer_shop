@@ -1,100 +1,11 @@
 import { cart } from "./cart.js";
+import { products } from "./data/products.js";
 
 const productsGrid = document.getElementById("productsGrid");
 productsGrid.className = "products-grid";
 
-const products = [
-    {
-        id: 1,
-        image: "assets/images/gpu.webp",
-        name: "RTX 5070",
-        price: 3500,
-        category: "GPU",
-        available: true
-    },
-    {
-        id: 2,
-        image: "assets/images/cpu.webp",
-        name: "Ryzen 7",
-        price: 1800,
-        category: "CPU",
-        available: true
-    },
-    {
-        id: 3,
-        image: "assets/images/ram.webp",
-        name: "Patriot 32GB",
-        price: 1900,
-        category: "RAM",
-        available: true
-    },
-    {
-        id: 4,
-        image: "assets/images/m2.webp",
-        name: "Lexar 1TB",
-        price: 650,
-        category: "M.2",
-        available: true
-    },
-    {
-        id: 5,
-        image: "assets/images/gpu-amd-1.webp",
-        name: "Gigabyte Radeon RX 7600",
-        price: 1500,
-        category: "GPU",
-        available: true
-    },
-    {
-        id: 6,
-        image: "assets/images/mb-1.webp",
-        name: "ASUS TUF GAMING B850-PLUS WIFI",
-        price: 900,
-        category: "Motherboard",
-        available: true
-    },
-    {
-        id: 7,
-        image: "assets/images/cpu-intel-1.webp",
-        name: "Intel Core i5-14400F",
-        price: 750,
-        category: "CPU",
-        available: true
-    },
-    {
-        id: 8,
-        image: "assets/images/ram-2.webp",
-        name: "Kingston FURY 32GB",
-        price: 2250,
-        category: "RAM",
-        available: true
-    }
-];
-
 const cartCountElement = document.querySelector(".cart-count");
-products.forEach(product => {
-    const productCard = createProductCard(product);
-    productsGrid.appendChild(productCard);
-});
-
-// wyszukiwarka
 const searchInput = document.querySelector(".search-input");
-searchInput.addEventListener("input", () => {
-    const filteredProducts = products.filter(product => {
-        return product.name.toLowerCase().includes(searchInput.value.toLowerCase().trim()) ||
-            product.category.toLowerCase().includes(searchInput.value.toLowerCase().trim());
-    });
-
-    productsGrid.innerHTML = "";
-
-    if (filteredProducts.length === 0) {
-        productsGrid.innerHTML = "Nie znaleziono produktów.";
-    }
-
-    filteredProducts.forEach(product => {
-        const productCard = createProductCard(product);
-        productsGrid.appendChild(productCard);
-    });
-});
 
 function createProductCard(product) {
     const productCard = document.createElement("div");
@@ -144,54 +55,79 @@ function createProductCard(product) {
 
     return productCard;
 }
+function renderProducts(productsToRender) {
+    productsGrid.innerHTML = "";
 
-// kategorie
-const categories = new Set();
-products.forEach(product => {
-    categories.add(product.category);
-});
+    if (productsToRender.length === 0) {
+        productsGrid.innerHTML = "Nie znaleziono produktów.";
+    }
+
+    productsToRender.forEach(product => {
+        const productCard = createProductCard(product);
+        productsGrid.appendChild(productCard);
+    });
+}
+function getCategories(products) {
+    const categories = new Set();
+    products.forEach(product => {
+        categories.add(product.category);
+    });
+
+    return categories;
+}
+function createCategoryButtons(categories, products, categoriesContainer) {
+    categories.forEach(category => {
+        const categoryButton = document.createElement("button");
+        categoryButton.className = "category-button";
+        categoryButton.textContent = category;
+
+        categoriesContainer.appendChild(categoryButton);
+
+        categoryButton.addEventListener("click", () => {
+            const filteredProducts = products.filter(product => {
+                return product.category === category;
+            });
+
+            renderProducts(filteredProducts);
+        });
+    });
+}
+function createAllProductsButton(products, categoriesContainer) {
+    const allProductsButton = document.createElement("button");
+    allProductsButton.className = "all-products-button";
+    allProductsButton.textContent = "Wszystkie";
+
+    categoriesContainer.appendChild(allProductsButton);
+
+    allProductsButton.addEventListener("click", () => {
+        renderProducts(products);
+    });
+}
+function normalizeSearchValue(value) {
+    return value.toLowerCase().trim();
+}
+
+// --------------------------------------------------------------------------------------------------------
 
 const categoriesContainer = document.createElement("div");
 categoriesContainer.className = "categories-container";
 
 productsGrid.parentNode.insertBefore(categoriesContainer, productsGrid);
 
-const allProductsButton = document.createElement("button");
-allProductsButton.className = "all-products-button";
-allProductsButton.textContent = "Wszystkie";
+renderProducts(products);
 
-categoriesContainer.appendChild(allProductsButton);
+searchInput.addEventListener("input", () => {
+    const searchValue = normalizeSearchValue(searchInput.value);
 
-allProductsButton.addEventListener("click", () => {
-    productsGrid.innerHTML = "";
-
-    products.forEach(product => {
-        const productCard = createProductCard(product);
-        productsGrid.appendChild(productCard);
+    const filteredProducts = products.filter(product => {
+        return normalizeSearchValue(product.name).includes(searchValue) ||
+            normalizeSearchValue(product.category).includes(searchValue);
     });
+
+    renderProducts(filteredProducts);
 });
 
-categories.forEach(category => {
-    const categoryButton = document.createElement("button");
-    categoryButton.className = "category-button";
-    categoryButton.textContent = category;
+const categories = getCategories(products);
 
-    categoriesContainer.appendChild(categoryButton);
-
-    categoryButton.addEventListener("click", () => {
-        productsGrid.innerHTML = "";
-
-        const filteredProducts = products.filter(product => {
-            return product.category === category;
-        });
-
-        if (filteredProducts.length === 0) {
-            productsGrid.innerHTML = "Nie znaleziono produktów.";
-        }
-
-        filteredProducts.forEach(product => {
-            const productCard = createProductCard(product);
-            productsGrid.appendChild(productCard);
-        });
-    });
-});
+createAllProductsButton(products, categoriesContainer);
+createCategoryButtons(categories, products, categoriesContainer);

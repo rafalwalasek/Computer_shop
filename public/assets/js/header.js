@@ -54,7 +54,7 @@ const navLinks = [
     },
     {
         linkName: "Produkty",
-        path: "/products"
+        path: "products.html"
     }
 ];
 const nav = document.createElement("nav");

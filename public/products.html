@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Computer Shop</title>
+
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/products.css">
 </head>
 <body>
-    
-    <h1>Products</h1>
+    <!-- Header -->
+    <div id="headerContainer"></div>
 
+    <!-- Main -->
+    <main>
+        <!-- Products -->
+        <section class="products-section">
+            <div class="header-section">
+                <h2>Wszystkie produkty</h2>
+            </div>
+
+            <div id="productsGrid"></div>
+        </section><!-- END Products -->
+    </main><!-- END Main -->
+
+    <script src="assets/js/header.js"></script>
+    <script type="module" src="assets/js/products.js"></script>
+    <script type="module" src="assets/js/cart.js"></script>
 </body>
 </html>

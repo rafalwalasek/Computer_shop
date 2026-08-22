@@ -5,13 +5,13 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('products')
-  getProducts() {
-    return 'Products';
-  }
+  // @Get('products')
+  // getProducts() {
+  //   return 'Products';
+  // }
 
-  @Post('products')
-  addProduct() {
-    return 'Product added'
-  }
+  // @Post('products')
+  // addProduct() {
+  //   return 'Product added'
+  // }
 }
