@@ -146,7 +146,7 @@ function createProductCard(product) {
 }
 
 // kategorie
-const categories = new set();
+const categories = new Set();
 products.forEach(product => {
     categories.add(product.category);
 });
@@ -156,9 +156,42 @@ categoriesContainer.className = "categories-container";
 
 productsGrid.parentNode.insertBefore(categoriesContainer, productsGrid);
 
+const allProductsButton = document.createElement("button");
+allProductsButton.className = "all-products-button";
+allProductsButton.textContent = "Wszystkie";
+
+categoriesContainer.appendChild(allProductsButton);
+
+allProductsButton.addEventListener("click", () => {
+    productsGrid.innerHTML = "";
+
+    products.forEach(product => {
+        const productCard = createProductCard(product);
+        productsGrid.appendChild(productCard);
+    });
+});
+
 categories.forEach(category => {
     const categoryButton = document.createElement("button");
     categoryButton.className = "category-button";
+    categoryButton.textContent = category;
 
-    
+    categoriesContainer.appendChild(categoryButton);
+
+    categoryButton.addEventListener("click", () => {
+        productsGrid.innerHTML = "";
+
+        const filteredProducts = products.filter(product => {
+            return product.category === category;
+        });
+
+        if (filteredProducts.length === 0) {
+            productsGrid.innerHTML = "Nie znaleziono produktów.";
+        }
+
+        filteredProducts.forEach(product => {
+            const productCard = createProductCard(product);
+            productsGrid.appendChild(productCard);
+        });
+    });
 });
