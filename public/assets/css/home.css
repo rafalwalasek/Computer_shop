@@ -1,0 +1,89 @@
+.recommended-section {
+    margin: 30px auto;
+    padding: 25px;
+    max-width: 1200px;
+}
+    .recommended-section .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #c62828;
+    }
+        .recommended-section h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .recommended-section .header-section a {
+            padding: 8px 15px;
+            border: 1px solid #c62828;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+            .recommended-section .header-section a:hover {
+                background: #c62828;
+            }
+
+    .recommended-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+        .recommended-grid .product-card {
+            padding: 18px;
+            background: #151515;
+            border: 1px solid #2c2c2c;
+            transition: 0.25s;
+        }
+            .recommended-grid .product-card:hover {
+                border-color: #c62828;
+                transform: translateY(-6px);
+                box-shadow: 0 8px 25px rgba(198, 40, 40, 0.2);
+            }
+
+            .recommended-grid .product-image {
+                width: 100%;
+                height: 170px;
+                object-fit: contain;
+                margin-bottom: 15px;
+            }
+            .recommended-grid .product-name {
+                margin: 0 0 8px;
+                color: #fff;
+                font-size: 18px;
+            }
+            .recommended-grid .product-price {
+                margin: 0 0 8px;
+                color: #e53935;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .recommended-grid .product-category {
+                margin: 0 0 8px;
+                color: #888;
+                font-size: 13px;
+                text-transform: uppercase;
+            }
+            .recommended-grid .product-available {
+                margin: 0 0 15px;
+                color: #aaa;
+                font-size: 13px;
+            }
+            .recommended-grid .add-to-cart-button {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #c62828;
+                background: transparent;
+                color: #fff;
+                cursor: pointer;
+                transition: 0.2s;
+            }
+                .recommended-grid .add-to-cart-button:hover {
+                    background: #c62828;
+                }

@@ -1,5 +1,6 @@
-import { cart } from "./cart.js";
 import { products } from "./data/products.js";
+
+const cart = [];
 
 const productsGrid = document.getElementById("productsGrid");
 productsGrid.className = "products-grid";
@@ -48,6 +49,10 @@ function createProductCard(product) {
 
     addToCartButton.addEventListener("click", () => {
         cart.push(product);
+
+        const carts = JSON.stringify(cart);
+        localStorage.setItem("cart", carts);
+
         console.log(cart);
 
         cartCountElement.textContent = cart.length;

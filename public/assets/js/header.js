@@ -1,3 +1,5 @@
+// const { link } = require("fs");
+
 const headerContainer = document.getElementById("headerContainer");
 headerContainer.className = "header-container";
 
@@ -30,7 +32,7 @@ header.className = "header";
         searchContainer.appendChild(searchInput);
         searchContainer.appendChild(searchButton);
 
-    const cartLink = document.createElement("a");
+    const cartLink = document.createElement("div");
     cartLink.className = "cart-link";
 
         const cartLabel = document.createElement("p");
@@ -55,6 +57,10 @@ const navLinks = [
     {
         linkName: "Produkty",
         path: "products.html"
+    },
+    {
+        linkName: "Koszyk",
+        path: "cart.html"
     }
 ];
 const nav = document.createElement("nav");
