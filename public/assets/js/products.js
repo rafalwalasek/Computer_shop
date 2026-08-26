@@ -1,12 +1,41 @@
 import { products } from "./data/products.js";
 
-const cart = [];
+const cart = JSON.parse(localStorage.getItem("cart"));
+
+if (cart.length === 0) "Brak produktów";
+
+// --------------------------------------------------------------------------
 
 const productsGrid = document.getElementById("productsGrid");
 productsGrid.className = "products-grid";
 
 const cartCountElement = document.querySelector(".cart-count");
 const searchInput = document.querySelector(".search-input");
+
+const categoriesContainer = document.createElement("div");
+categoriesContainer.className = "categories-container";
+
+productsGrid.parentNode.insertBefore(categoriesContainer, productsGrid);
+
+renderProducts(products);
+
+searchInput.addEventListener("input", () => {
+    const searchValue = normalizeSearchValue(searchInput.value);
+
+    const filteredProducts = products.filter(product => {
+        return normalizeSearchValue(product.name).includes(searchValue) ||
+            normalizeSearchValue(product.category).includes(searchValue);
+    });
+
+    renderProducts(filteredProducts);
+});
+
+const categories = getCategories(products);
+
+createAllProductsButton(products, categoriesContainer);
+createCategoryButtons(categories, products, categoriesContainer);
+
+// --------------------------------------------------------------------------------------------------------
 
 function createProductCard(product) {
     const productCard = document.createElement("div");
@@ -52,8 +81,6 @@ function createProductCard(product) {
 
         const carts = JSON.stringify(cart);
         localStorage.setItem("cart", carts);
-
-        console.log(cart);
 
         cartCountElement.textContent = cart.length;
     });
@@ -111,28 +138,3 @@ function createAllProductsButton(products, categoriesContainer) {
 function normalizeSearchValue(value) {
     return value.toLowerCase().trim();
 }
-
-// --------------------------------------------------------------------------------------------------------
-
-const categoriesContainer = document.createElement("div");
-categoriesContainer.className = "categories-container";
-
-productsGrid.parentNode.insertBefore(categoriesContainer, productsGrid);
-
-renderProducts(products);
-
-searchInput.addEventListener("input", () => {
-    const searchValue = normalizeSearchValue(searchInput.value);
-
-    const filteredProducts = products.filter(product => {
-        return normalizeSearchValue(product.name).includes(searchValue) ||
-            normalizeSearchValue(product.category).includes(searchValue);
-    });
-
-    renderProducts(filteredProducts);
-});
-
-const categories = getCategories(products);
-
-createAllProductsButton(products, categoriesContainer);
-createCategoryButtons(categories, products, categoriesContainer);
